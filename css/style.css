@@ -219,13 +219,14 @@ html[dir="rtl"] .btn:hover .arrow { transform: translateX(-4px); }
   .menu-toggle { display: inline-flex; color: var(--cream-50); }
   .nav.scrolled .menu-toggle { color: var(--emerald-900); }
 }
-@media (max-width: 540px) {
-  .nav-actions { gap: 10px; }
-  .lang-toggle { padding: 6px 11px; font-size: .72rem; letter-spacing: .1em; }
-  .menu-toggle { width: 38px; height: 38px; }
-  .menu-toggle span,
-  .menu-toggle span::before,
-  .menu-toggle span::after { width: 18px; }
+/* On phones (<= 720px) the lang-toggle + hamburger were rendering
+   awkwardly and crowding the larger logo. Per design decision, the
+   entire top-right control cluster is hidden on mobile. The nav-links
+   drawer is no longer reachable (it lives behind the hamburger), but
+   that is intentional — the page is fully usable on mobile via the
+   sticky WhatsApp CTA at the bottom and the floating contact FAB. */
+@media (max-width: 720px) {
+  .nav-actions { display: none; }
 }
 
 /* =========================================================
