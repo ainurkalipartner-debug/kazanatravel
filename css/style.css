@@ -171,21 +171,34 @@ html[dir="rtl"] .btn:hover .arrow { transform: translateX(-4px); }
   transition: transform .35s var(--ease);
 }
 .nav-links a:hover::after { transform: scaleX(1); }
-.nav-actions { display: flex; align-items: center; gap: 16px; }
+.nav-actions { display: flex; align-items: center; gap: 14px; }
 
 .lang-toggle {
   display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px;
   border: 1px solid rgba(255,255,255,.4); border-radius: var(--radius-pill);
   font-size: .8rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
   color: var(--cream-50); transition: all .3s var(--ease);
+  cursor: pointer;
+  white-space: nowrap;
 }
 .nav.scrolled .lang-toggle { border-color: var(--emerald-800); color: var(--emerald-800); }
 .lang-toggle:hover { background: var(--gold-500); border-color: var(--gold-500); color: var(--emerald-900); }
 
-.menu-toggle { display: none; width: 38px; height: 38px; align-items: center; justify-content: center; }
-.menu-toggle span { display: block; width: 22px; height: 2px; background: currentColor; position: relative; }
+.menu-toggle {
+  display: none;
+  position: relative;
+  width: 40px; height: 40px;
+  align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+.nav:not(.scrolled) .menu-toggle { background: rgba(255,255,255,.1); backdrop-filter: blur(6px); }
+.nav.scrolled .menu-toggle { background: rgba(10,42,32,.06); }
+.menu-toggle span { display: block; width: 20px; height: 2px; background: currentColor; position: relative; border-radius: 2px; }
 .menu-toggle span::before, .menu-toggle span::after {
   content:""; position: absolute; left: 0; width: 100%; height: 2px; background: currentColor;
+  border-radius: 2px;
   transition: transform .3s var(--ease);
 }
 .menu-toggle span::before { top: -7px; }
@@ -205,6 +218,14 @@ html[dir="rtl"] .btn:hover .arrow { transform: translateX(-4px); }
   .nav-links.is-open { transform: translateX(0); }
   .menu-toggle { display: inline-flex; color: var(--cream-50); }
   .nav.scrolled .menu-toggle { color: var(--emerald-900); }
+}
+@media (max-width: 540px) {
+  .nav-actions { gap: 10px; }
+  .lang-toggle { padding: 6px 11px; font-size: .72rem; letter-spacing: .1em; }
+  .menu-toggle { width: 38px; height: 38px; }
+  .menu-toggle span,
+  .menu-toggle span::before,
+  .menu-toggle span::after { width: 18px; }
 }
 
 /* =========================================================
@@ -510,7 +531,8 @@ html[dir="rtl"] .pkg-badge { left: auto; right: 16px; }
   padding: 0 90px; /* generous room for arrows outside the card */
 }
 @media (max-width: 880px) { .test-wrap { padding: 0 60px; margin-top: 44px; } }
-@media (max-width: 540px) { .test-wrap { padding: 0; margin-top: 36px; } }
+/* Arrows are hidden under 720px, so reclaim the side padding. */
+@media (max-width: 720px) { .test-wrap { padding: 0; margin-top: 36px; } }
 
 .test-stage {
   position: relative;
@@ -607,21 +629,16 @@ html[dir="rtl"] .test-card::before { content: "\201D"; }
 .test-arrow.next { right: 0; }
 .test-arrow svg { width: 20px; height: 20px; }
 @media (max-width: 880px) { .test-arrow { width: 44px; height: 44px; } }
-@media (max-width: 540px) {
-  .test-arrow {
-    top: auto; bottom: -72px; transform: none;
-    width: 44px; height: 44px;
-  }
-  .test-arrow.prev { left: calc(50% - 60px); }
-  .test-arrow.next { left: calc(50% + 16px); right: auto; }
-  .test-stage { min-height: 420px; }
+/* On mobile, hide arrows entirely — dots + tap remain. This prevents
+   overlap into the "Plan with us" section below. */
+@media (max-width: 720px) {
+  .test-arrow { display: none; }
 }
 
 .test-dots {
   display: flex; gap: 10px; justify-content: center;
   margin-top: 40px;
 }
-@media (max-width: 540px) { .test-dots { margin-top: 92px; } }
 .test-dot {
   width: 8px; height: 8px; border-radius: 50%;
   background: rgba(251,247,239,.28); transition: all .3s; cursor: pointer; border: 0; padding: 0;
